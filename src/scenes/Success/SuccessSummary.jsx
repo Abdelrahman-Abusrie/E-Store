@@ -1,10 +1,23 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { cartContext } from '../../Contexts/CartContext';
 import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
 import { Divider } from '@mui/material';
 
 export default function SuccessSummary() {
-    const { cartItems, subtotal, tax, total } = useContext(cartContext);
+    const { cartItems, subtotal, tax, total, clearCart } = useContext(cartContext);
+
+    // Create a snapshot of the cart data on mount.
+    // This ensures the summary persists after clearCart() is called.
+    const [orderSnapshot] = useState({
+        items: [...cartItems],
+        subtotal,
+        tax,
+        total
+    });
+
+    useEffect(() => {
+        clearCart();
+    }, []);
 
     return (
         <div className="bg-gray-50 rounded-3xl p-8 flex flex-col shadow-sm border border-gray-100 h-full">
@@ -14,7 +27,7 @@ export default function SuccessSummary() {
             </h2>
             {/* Cart Items */}
             <div className="flex flex-col gap-6 flex-1 max-h-[300px] overflow-y-auto">
-                {cartItems.map((item, index) => (
+                {orderSnapshot.items.map((item, index) => (
                     <div key={item.id || index} >
                         <div className="flex gap-4 items-center min-w-fit ">
                             <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center p-2 border border-gray-200">
@@ -32,7 +45,7 @@ export default function SuccessSummary() {
                             </div>
                         </div>
                         {/* Divider between items */}
-                        {index < cartItems.length - 1 && <Divider sx={{ borderColor: '#e5e7eb', my: 2 }} />}
+                        {index < orderSnapshot.items.length - 1 && <Divider sx={{ borderColor: '#e5e7eb', my: 2 }} />}
                     </div>
                 ))}
             </div>
@@ -42,7 +55,7 @@ export default function SuccessSummary() {
             <div className="flex flex-col gap-4 text-sm text-gray-600 mb-6 font-medium">
                 <div className="flex justify-between items-center">
                     <span>Subtotal</span>
-                    <span className="text-gray-800 font-semibold">${subtotal.toFixed(2)}</span>
+                    <span className="text-gray-800 font-semibold">${orderSnapshot.subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
                     <span>Shipping</span>
@@ -50,13 +63,13 @@ export default function SuccessSummary() {
                 </div>
                 <div className="flex justify-between items-center">
                     <span>Tax</span>
-                    <span className="text-gray-800 font-semibold">${tax.toFixed(2)}</span>
+                    <span className="text-gray-800 font-semibold">${orderSnapshot.tax.toFixed(2)}</span>
                 </div>
             </div>
 
             <div className="flex justify-between items-end mt-2">
                 <span className="text-xl font-bold text-gray-800">Total</span>
-                <span className="text-3xl font-black text-blue-600">${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                <span className="text-3xl font-black text-blue-600">${orderSnapshot.total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
             </div>
         </div>
     );

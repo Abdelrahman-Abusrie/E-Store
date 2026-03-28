@@ -1,3 +1,46 @@
+
+
+// mobiles
+// useEffect(() => {
+//         fetch('https://dummyjson.com/products/category/smartphones')
+//             .then((res) => {
+//                 if (!res.ok) throw new Error('Network response was not ok');
+//                 return res.json();
+//             })
+//             .then((data) => {
+//                 // The API returns an object with a 'products' array
+//                 setProducts(data.products);
+//                 setLoading(false);
+//                 console.log(data.products);
+//             })
+//             .catch((err) => {
+//                 setError(err.message);
+//                 setLoading(false);
+//             });
+//     }, []);
+
+
+// Watches
+// fetch('https://dummyjson.com/products/search?q=watch')
+
+// laptops
+// fetch('https://dummyjson.com/products/category/laptops')
+
+
+// accessories
+// fetch('https://dummyjson.com/products/category/mobile-accessories')
+
+
+
+
+
+
+
+
+
+
+
+
 export const Phones = [
     { id: crypto.randomUUID(), title: "Apple iPhone 13 ", variant: "Pink | 256GB ", isInStock: true, price: 1299, image: "../../../images/products_images/iphone_PNG1.png" },
     { id: crypto.randomUUID(), title: "Apple iPhone 14 ", variant: "Black | 1TBGB ", isInStock: true, price: 1399, image: "../../../images/products_images/iphone_PNG2.png" },

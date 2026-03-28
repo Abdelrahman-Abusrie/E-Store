@@ -112,7 +112,7 @@ function Header() {
                             setIsMenuOpen(!isMenuOpen);
                         }} />}
                         {/* Nav Links */}
-                        <div id='nav' className={` flex ${isMobile ? (isMenuOpen ? 'absolute flex-col gap-y-5 top-16 right-4 z-20 w-48 p-4 bg-white border border-gray-100 shadow-xl rounded-xl' : 'hidden') : 'relative gap-10 items-center'} `}>
+                        <div id='nav' className={` flex overflow-hidden ${isMobile ? `absolute flex-col top-16 right-4 z-20 bg-white border-gray-100 shadow-xl rounded-xl transition-all duration-300 ease-in-out w-48 ${isMenuOpen ? 'max-h-96 p-4 border gap-y-5' : 'max-h-0 p-0 border-0 gap-y-0 pointer-events-none'} ` : 'relative pt-2 gap-10 items-center'} `}>
                             <ul className={`nav ${isMobile ? 'flex-col' : ''}  flex gap-6 font-semibold text-mist-700  `}>
                                 <li id='home' className='nav-item duration-300 hover:text-black cursor-pointer' onClick={() => {
                                     setIsMenuOpen(false);

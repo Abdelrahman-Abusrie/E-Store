@@ -21,6 +21,10 @@ import NotFound from './scenes/NotFound';
 function App() {
 
 
+  
+
+
+
   return (
     <>
       <CartProvider>
