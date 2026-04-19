@@ -31,7 +31,7 @@ export default function Featured() {
 
     return (
         <div className="pt-20 pb-10 px-1">
-            <div className="container mx-auto p-1">
+            <div className="my-container mx-auto p-1">
                 <h1 className="text-2xl font-bold">Featured Tech </h1>
                 <div className="relative py-10">
                     <Swiper

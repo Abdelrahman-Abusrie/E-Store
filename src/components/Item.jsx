@@ -3,10 +3,11 @@ import { Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { wishlistContext } from '../Contexts/WishlistContext';
-import FadeIn from './Fadin';
-import {
-    Star,
-} from '@mui/icons-material';
+import FadeIn from './FadeIn';
+import Star from '@mui/icons-material/Star';
+import ErrorIcon from '@mui/icons-material/Error';
+import { profileActiveContext } from '../Contexts/ProfileActiveContext';
+import { useState } from 'react';
 
 /**
  * Item Component
@@ -22,8 +23,17 @@ export default function Item({ item = {} }) {
     // Derive favorite state from context
     const safeItemId = item.id || '';
     const isInWishlist = wishlistItems.some((fav) => fav.id === safeItemId);
+    const { isProfileActive } = useContext(profileActiveContext);
+    const [showErrorToast, setShowErrorToast] = useState(false);
 
     const handleFavorite = () => {
+        if (!isProfileActive) {
+            setShowErrorToast(true);
+            setTimeout(() => {
+                setShowErrorToast(false);
+            }, 2000);
+            return;
+        };
         if (isInWishlist) {
             removeFromWishlist(item);
         } else {
@@ -46,7 +56,7 @@ export default function Item({ item = {} }) {
                     <button className='cursor-pointer '
                         onClick={handleFavorite}
                     >
-                        <FavoriteIcon sx={{ fontSize: "30px", color: isInWishlist ? 'red' : "#888" }} />
+                        <FavoriteIcon sx={{ fontSize: "30px", color: isProfileActive && isInWishlist ? 'red' : "#888" }} />
                     </button>
                 </div>
                 {/* Product Card Body */}
@@ -84,6 +94,15 @@ export default function Item({ item = {} }) {
                     </div>}
                 </div>
             </FadeIn>
+            {/* Error Toast */}
+            {showErrorToast && (
+                <div className='fixed bottom-4 right-4 bg-white p-4 rounded-xl shadow-xl shadow-black/10 border border-gray-200 text-center z-50 animate-bounce'>
+                    <div className='text-gray-800 flex items-center gap-2 font-medium'>
+                        <ErrorIcon sx={{ fontSize: "24px", color: "#ef4444" }} />
+                        <span>Please Login First!</span>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

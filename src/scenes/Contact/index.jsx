@@ -9,7 +9,7 @@ import ContactForm from "./ContactForm";
 export default function Contact() {
     return (
         <div className="bg-[#fafafa] py-16 min-h-screen">
-            <div className="container mx-auto px-4 max-w-6xl">
+            <div className="my-container mx-auto px-4 max-w-6xl">
                 {/* Header Section */}
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>

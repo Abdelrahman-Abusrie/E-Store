@@ -14,8 +14,8 @@ const RightPanel = () => {
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState({
-        email: '',
-        password: '',
+        email: 'test@TechStore.com',
+        password: '123456',
         rememberMe: false,
     });
     const { setIsProfileActive } = useContext(profileActiveContext);

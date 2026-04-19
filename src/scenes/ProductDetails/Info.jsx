@@ -3,11 +3,14 @@ import {
     Inventory2Outlined,
     GppGoodOutlined,
 } from '@mui/icons-material';
+import ErrorIcon from '@mui/icons-material/Error';
 import AddTaskIcon from '@mui/icons-material/AddTask';
+
 import { useLocation } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { cartContext } from '../../Contexts/CartContext';
 import { wishlistContext } from '../../Contexts/WishlistContext';
+import { profileActiveContext } from '../../Contexts/ProfileActiveContext';
 
 /**
  * Info Component
@@ -22,6 +25,8 @@ export default function Info() {
     const { addToCart } = useContext(cartContext);
     const { addToWishlist } = useContext(wishlistContext);
     const [showToast, setShowToast] = useState(false);
+    const { isProfileActive } = useContext(profileActiveContext);
+    const [showErrorToast, setShowErrorToast] = useState(false);
 
 
     return (
@@ -67,6 +72,13 @@ export default function Info() {
             <div className="flex gap-4 mb-8">
                 <button className="flex-1 cursor-pointer py-4 px-6 rounded-xl border-2 border-gray-900 font-semibold text-center hover:bg-gray-100 duration-200"
                     onClick={() => {
+                        if (!isProfileActive) {
+                            setShowErrorToast(true);
+                            setTimeout(() => {
+                                setShowErrorToast(false);
+                            }, 3000);
+                            return;
+                        };
                         addToWishlist(item);
                         setShowToast(true);
                         setTimeout(() => {
@@ -78,6 +90,13 @@ export default function Info() {
                 </button>
                 <button className="flex-1 cursor-pointer py-4 px-6 rounded-xl bg-black text-white font-semibold text-center hover:bg-gray-900 duration-200 shadow-lg shadow-black/20"
                     onClick={() => {
+                        if (!isProfileActive) {
+                            setShowErrorToast(true);
+                            setTimeout(() => {
+                                setShowErrorToast(false);
+                            }, 3000);
+                            return;
+                        };
                         addToCart(item);
                         setShowToast(true);
                         setTimeout(() => {
@@ -116,6 +135,16 @@ export default function Info() {
                     <div className='text-gray-800 flex items-center gap-2 font-medium'>
                         <AddTaskIcon sx={{ fontSize: "24px", color: "#22c55e" }} />
                         <span>Item Added Successfully!</span>
+                    </div>
+                </div>
+            )}
+
+            {/* Error Toast */}
+            {showErrorToast && (
+                <div className='fixed bottom-4 right-4 bg-white p-4 rounded-xl shadow-xl shadow-black/10 border border-gray-200 text-center z-50 animate-bounce'>
+                    <div className='text-gray-800 flex items-center gap-2 font-medium'>
+                        <ErrorIcon sx={{ fontSize: "24px", color: "#ef4444" }} />
+                        <span>Please Login First!</span>
                     </div>
                 </div>
             )}

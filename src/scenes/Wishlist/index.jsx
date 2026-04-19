@@ -15,7 +15,7 @@ export default function Wishlist() {
 
 
     return (
-        <div className="container mx-auto px-4 py-10 min-h-screen">
+        <div className="my-container mx-auto px-4 py-10 min-h-screen">
             {/* Breadcrumb */}
             <div className="text-sm text-gray-400 mb-6 font-medium">
                 <Link to="/" className="hover:text-gray-800 transition-colors">Home</Link>

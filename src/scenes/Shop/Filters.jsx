@@ -9,7 +9,7 @@ import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
 import Slider from '@mui/material/Slider';
 
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function Filters({ showFilters, setShowFilters, cat, setCat, availableBrands, selectedBrand, onBrandSelect, maxPrice, setMaxPrice }) {
     const [openCat, setOpenCat] = useState(true);
@@ -17,12 +17,14 @@ export default function Filters({ showFilters, setShowFilters, cat, setCat, avai
     const [openPrice, setOpenPrice] = useState(true);
 
     const [price, setPrice] = useState(maxPrice || 2000);
+    const [prevMaxPrice, setPrevMaxPrice] = useState(maxPrice);
 
-    useEffect(() => {
-        if (maxPrice !== undefined) {
-            setPrice(maxPrice);
-        }
-    }, [maxPrice]);
+    if (maxPrice !== prevMaxPrice) {
+        setPrice(maxPrice);
+        setPrevMaxPrice(maxPrice);
+    }
+
+
 
     const handleOpenCat = () => setOpenCat(!openCat);
     const handleOpenBrand = () => setOpenBrand(!openBrand);

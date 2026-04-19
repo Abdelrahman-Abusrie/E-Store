@@ -13,7 +13,7 @@ export default function Shipping() {
 
 
     return (
-        <div className="container mx-auto px-4 py-8 min-h-screen">
+        <div className="my-container mx-auto px-4 py-8 min-h-screen">
             {/* Breadcrumbs */}
             <div className="flex gap-2 text-sm text-gray-400 font-medium mb-10">
                 <a href="/cart" className="hover:text-blue-500 transition-colors">Cart</a>

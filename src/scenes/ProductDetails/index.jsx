@@ -17,7 +17,7 @@ const ProductDetails = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <div className="max-w-[1200px] mx-auto px-4 md:px-8 pt-8">
+      <div className="my-container mx-auto px-4 md:px-8 pt-8">
         {/* Breadcrumbs */}
         <div className="flex max-w-full overflow-x-auto items-center text-sm text-gray-400 mb-10 space-x-2 font-medium">
           <span className="cursor-pointer hover:text-black transition-colors">Home</span>

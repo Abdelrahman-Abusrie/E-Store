@@ -1,5 +1,11 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 
+/**
+ * FadeIn Component
+ * 
+ * Provides a fade-in animation for its children as they enter the viewport.
+ * Supports different directions and delays.
+ */
 export default function FadeIn({ children, delay = 0, direction = "up" }) {
     const variants = {
         hidden: {
@@ -11,15 +17,16 @@ export default function FadeIn({ children, delay = 0, direction = "up" }) {
     };
 
     return (
-        <motion.div
+        <Motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, ease: "easeOut", delay }}
             variants={variants}
             exit="hidden"
         >
             {children}
-        </motion.div>
+        </Motion.div>
     );
 }
+

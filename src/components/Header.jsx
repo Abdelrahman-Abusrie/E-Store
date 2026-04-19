@@ -12,7 +12,7 @@ import { wishlistContext } from '../Contexts/WishlistContext';
 import MiniCart from './MiniCart';
 import ProductsContext from '../Contexts/ProductsContext';
 import { profileActiveContext } from '../Contexts/ProfileActiveContext';
-
+import ErrorIcon from '@mui/icons-material/Error';
 
 /**
  * Header Component
@@ -35,7 +35,7 @@ function Header() {
     const { allProducts } = useContext(ProductsContext);
     const [profileOpen, setProfileOpen] = useState(false);
     const { isProfileActive, setIsProfileActive } = useContext(profileActiveContext);
-
+    const [showErrorToast, setShowErrorToast] = useState(false);
 
     useEffect(() => {
         if (searchQuery.length > 0) {
@@ -54,14 +54,13 @@ function Header() {
         setSearchResults([]);
     };
 
-
-
     // Auto-focus input when search becomes active
     useEffect(() => {
         if (isSearchActive && searchInputRef.current) {
             searchInputRef.current.focus();
         }
     }, [isSearchActive]);
+
 
     // Close mobile menu when clicking outside of it
     useEffect(() => {
@@ -79,7 +78,7 @@ function Header() {
 
     return (
         <div className="z-30 bg-white border-b border-gray-200 shadow-sm relative" >
-            <div className='flex justify-between gap-3 items-center container mx-auto px-4 h-16'>
+            <div className='flex justify-between gap-3 items-center my-container mx-auto px-4 h-16 relative'>
                 {/* Left Panel: Logo & Search */}
                 <div className=' flex-1 flex gap-4 md:gap-10 items-center justify-between lg:justify-start transition-all duration-300'>
                     {/* Logo (Hidden on mobile when search is active) */}
@@ -93,7 +92,7 @@ function Header() {
                     )}
                     {/* Search Bar */}
                     <div
-                        className={`flex items-center bg-gray-100 text-gray-500 transition-all duration-300 overflow-hidden ${isMobile
+                        className={`flex items-center bg-gray-100 text-gray-500 transition-all duration-300 ${isMobile
                             ? (isSearchActive ? 'flex-1 rounded-full px-4 py-2 gap-2 opacity-100' : 'w-10 h-10 rounded-full justify-center items-center cursor-pointer')
                             : 'flex-1 max-w-xs rounded-md p-2 gap-3'
                             }`}
@@ -177,17 +176,17 @@ function Header() {
                             setProfileOpen(false);
                         }} />}
                         {/* Nav Links */}
-                        <div id='nav' className={` flex overflow-hidden  ${isMobile ? `absolute flex-col top-full right-4 z-20 bg-white border-gray-100 shadow-xl rounded-xl transition-all duration-300 ease-in-out w-48 ${isMenuOpen ? 'max-h-96 p-4 border gap-y-5' : 'max-h-0 p-0 border-0 gap-y-0 pointer-events-none'} ` : 'relative pt-2 gap-10 items-center mr-5'} `}>
-                            <ul className={`nav ${isMobile ? 'flex-col' : ''}  flex gap-6 font-semibold text-mist-700  `}>
-                                <li id='home' className='nav-item duration-300 hover:text-black cursor-pointer' onClick={() => {
+                        <div id='nav' className={` flex overflow-hidden  ${isMobile ? `absolute flex-col top-full right-4 z-20 bg-white border-gray-100 shadow-xl rounded-lg transition-all duration-300 ease-in-out w-48  ${isMenuOpen ? 'max-h-96 border border-gray-200' : 'max-h-0 border-0 pointer-events-none'} ` : 'relative pt-2 gap-10 items-center mr-5'} `}>
+                            <ul className={`nav px-4 py-4 ${isMobile ? 'flex-col' : ''}  flex gap-6 font-semibold text-mist-700  `}>
+                                <li id='home' className='nav-item font-semibold duration-300 hover:text-black cursor-pointer' onClick={() => {
                                     setIsMenuOpen(false);
                                     navigate('/');
                                 }}>Home</li>
-                                <li id='shop' className='nav-item duration-300 hover:text-black cursor-pointer' onClick={() => {
+                                <li id='shop' className='nav-item font-semibold duration-300 hover:text-black cursor-pointer' onClick={() => {
                                     setIsMenuOpen(false);
                                     navigate('/shop');
                                 }}>Shop </li>
-                                <li id='contact' className='nav-item duration-300 hover:text-black cursor-pointer' onClick={() => {
+                                <li id='contact' className='nav-item font-semibold duration-300 hover:text-black cursor-pointer' onClick={() => {
                                     setIsMenuOpen(false);
                                     navigate('/contact');
                                 }}>Contact US</li>
@@ -205,21 +204,33 @@ function Header() {
                             <div className='flex gap-3'>
                                 {/* Wishlist Icon */}
                                 <div className='relative cursor-pointer' onClick={() => {
-                                    if (!isProfileActive) return;
+                                    if (!isProfileActive) {
+                                        setShowErrorToast(true);
+                                        setTimeout(() => {
+                                            setShowErrorToast(false);
+                                        }, 2000);
+                                        return;
+                                    };
                                     setProfileOpen(false);
                                     navigate('/wishlist');
                                 }} >
                                     <FavoriteBorderIcon />
-                                    <span className='absolute -top-0.5 -right-1.5 bg-red-500 text-white text-[10px] rounded-full w-5 h-3.5 flex items-center justify-center'>{wishlistItems.length > 99 ? '99+' : wishlistItems.length}</span>
+                                    <span className='absolute -top-0.5 -right-1.5 bg-red-500 text-white text-[10px] rounded-full w-5 h-3.5 flex items-center justify-center'>{isProfileActive ? (wishlistItems.length > 99 ? '99+' : wishlistItems.length) : 0}</span>
                                 </div>
                                 {/* Cart Icon */}
                                 <div className='relative cursor-pointer' onClick={() => {
-                                    if (!isProfileActive) return;
+                                    if (!isProfileActive) {
+                                        setShowErrorToast(true);
+                                        setTimeout(() => {
+                                            setShowErrorToast(false);
+                                        }, 2000);
+                                        return;
+                                    };
                                     setProfileOpen(false);
                                     setIsCartOpen(true);
                                 }}>
                                     <ShoppingCartOutlinedIcon />
-                                    <span className='absolute -top-0.5 -right-1.5 bg-red-500 text-white text-[10px] rounded-full w-5 h-3.5 flex items-center justify-center'>{cartItems.length}</span>
+                                    <span className='absolute -top-0.5 -right-1.5 bg-red-500 text-white text-[10px] rounded-full w-5 h-3.5 flex items-center justify-center'>{isProfileActive ? (cartItems.length > 99 ? '99+' : cartItems.length) : 0}</span>
                                 </div>
                             </div>
                         )}
@@ -249,43 +260,57 @@ function Header() {
                                 <div>
                                     <div className='px-4 py-2 font-semibold hover:bg-gray-100 cursor-pointer' onClick={() => {
                                         setProfileOpen(false);
-                                        // navigate('/profile');
                                     }}>Profile</div>
-                                    {isMobile && (
-                                        <div>
-                                            {/* Wishlist Icon */}
-                                            <div className='relative px-4 py-2 hover:bg-gray-100 cursor-pointer' onClick={() => {
-                                                if (!isProfileActive) return;
-                                                setProfileOpen(false);
-                                                navigate('/wishlist');
-                                            }} >
-                                                <FavoriteBorderIcon />
-                                                <span className='absolute top-1 left-7 bg-red-500 text-white text-[10px] rounded-full w-5 h-3.5 flex items-center justify-center'>{wishlistItems.length > 99 ? '99+' : wishlistItems.length}</span>
-                                            </div>
-                                            {/* Cart Icon */}
-                                            <div className='relative px-4 py-2 hover:bg-gray-100 cursor-pointer' onClick={() => {
-                                                if (!isProfileActive) return;
-                                                setProfileOpen(false);
-                                                setIsCartOpen(true);
-                                            }}>
-                                                <ShoppingCartOutlinedIcon />
-                                                <span className='absolute top-1 left-7 bg-red-500 text-white text-[10px] rounded-full w-5 h-3.5 flex items-center justify-center'>{cartItems.length}</span>
-                                            </div>
 
-                                            {/* Logout Icon */}
-                                            {isProfileActive && <div className='px-4 py-2 font-semibold hover:bg-gray-100 cursor-pointer' onClick={() => {
-                                                setProfileOpen(false);
-                                                setIsProfileActive(false);
-                                            }}>Logout</div>}
-                                        </div>
-                                    )}
                                 </div>
                             )}
+                            {isMobile &&
+                                <div>
+                                    {/* Wishlist Icon */}
+                                    <div className='relative px-4 py-2 hover:bg-gray-100 cursor-pointer' onClick={() => {
+                                        if (!isProfileActive) {
+                                            setShowErrorToast(true);
+                                            setTimeout(() => {
+                                                setShowErrorToast(false);
+                                            }, 2000);
+                                            return;
+                                        };
+                                        setProfileOpen(false);
+                                        navigate('/wishlist');
+                                    }} >
+                                        <FavoriteBorderIcon />
+                                        <span className='absolute top-1 left-7 bg-red-500 text-white text-[10px] rounded-full w-5 h-3.5 flex items-center justify-center'>{isProfileActive ? (wishlistItems.length > 99 ? '99+' : wishlistItems.length) : 0}</span>
+                                    </div>
+                                    {/* Cart Icon */}
+                                    <div className='relative px-4 py-2 hover:bg-gray-100 cursor-pointer' onClick={() => {
+                                        if (!isProfileActive) {
+                                            setShowErrorToast(true);
+                                            setTimeout(() => {
+                                                setShowErrorToast(false);
+                                            }, 2000);
+                                            return;
+                                        };
+                                        setProfileOpen(false);
+                                        setIsCartOpen(true);
+                                    }}>
+                                        <ShoppingCartOutlinedIcon />
+                                        <span className='absolute top-1 left-7 bg-red-500 text-white text-[10px] rounded-full w-5 h-3.5 flex items-center justify-center'>{isProfileActive ? (cartItems.length > 99 ? '99+' : cartItems.length) : 0}</span>
+                                    </div>
+
+                                    {/* Logout Icon */}
+                                    {isProfileActive && <div className='px-4 py-2 font-semibold hover:bg-gray-100 cursor-pointer' onClick={() => {
+                                        setProfileOpen(false);
+                                        setIsProfileActive(false);
+                                        navigate('/');
+                                    }}>Logout</div>}
+                                </div>
+                            }
 
                             {/* Logout Icon */}
                             {isProfileActive && !isMobile && <div className='px-4 py-2 font-semibold hover:bg-gray-100 cursor-pointer' onClick={() => {
                                 setProfileOpen(false);
                                 setIsProfileActive(false);
+                                navigate('/');
                             }}>Logout</div>}
 
                             {!isProfileActive && (
@@ -301,8 +326,16 @@ function Header() {
 
                 </div>
             </div >
+            {/* Error Toast */}
+            {showErrorToast && (
+                <div className='fixed bottom-4 right-4 bg-white p-4 rounded-xl shadow-xl shadow-black/10 border border-gray-200 text-center z-50 animate-bounce'>
+                    <div className='text-gray-800 flex items-center gap-2 font-medium'>
+                        <ErrorIcon sx={{ fontSize: "24px", color: "#ef4444" }} />
+                        <span>Please Login First!</span>
+                    </div>
+                </div>
+            )}
         </div >
-
     );
 }
 

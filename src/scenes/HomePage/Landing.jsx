@@ -15,7 +15,7 @@ export default function Landing() {
         <div >
             <div className=" w-full relative bg-mauve-900 flex items-end" >
                 {/* Main Hero */}
-                <div className="container  mx-auto p-2 flex gap-y-5 h-full items-center ">
+                <div className="my-container  mx-auto p-2 flex gap-y-5 h-full items-center ">
                     {/* Text */}
                     <div className='absolute sm:relative basis-1/2 flex z-20 flex-col h-full items-start justify-center'>
                         <p className="text-gray-500 text-md " >Pro.Beyond.</p>

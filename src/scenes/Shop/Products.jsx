@@ -3,15 +3,23 @@ import { useState, useEffect } from "react";
 
 export default function Products({ onClick, Products, currentPage, setCurrentPage }) {
     const [isLoading, setIsLoading] = useState(true);
+    const [prevItems, setPrevItems] = useState(Products);
+    const [prevPage, setPrevPage] = useState(currentPage);
+
+    if (Products !== prevItems || currentPage !== prevPage) {
+        setIsLoading(true);
+        setPrevItems(Products);
+        setPrevPage(currentPage);
+    }
 
     // Simulate loading
     useEffect(() => {
-        setIsLoading(true);
         const timer = setTimeout(() => {
             setIsLoading(false);
         }, 500);
         return () => clearTimeout(timer);
     }, [Products, currentPage]);
+
 
     // Display 12 Products per Page 
     const PER_PAGE = 12;

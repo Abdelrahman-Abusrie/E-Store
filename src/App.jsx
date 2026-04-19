@@ -20,16 +20,10 @@ import NotFound from './scenes/NotFound';
 import { ProductsProvider } from './Contexts/ProductsContext';
 import { FilterProvider } from './Contexts/FilterContext';
 import { ProfileActiveProvider } from './Contexts/ProfileActiveContext';
-
-
+localStorage.clear();
 function App() {
-
-
-
-
-
-
   return (
+
     <>
       <ProfileActiveProvider>
         <ProductsProvider>

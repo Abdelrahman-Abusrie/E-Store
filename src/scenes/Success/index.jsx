@@ -14,7 +14,7 @@ export default function Success() {
     }, []);
 
     return (
-        <div className="container mx-auto px-4 py-8 min-h-screen">
+        <div className="my-container mx-auto px-4 py-8 min-h-screen">
             <TopHeader />
 
             <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">

@@ -14,7 +14,7 @@ export default function Shop() {
     const { products, brands } = useContext(ProductsContext);
 
     const categoryMap = {
-        'SmartPhones': 'phones',
+        'Smartphones': 'phones',
         'Laptops': 'laptops',
         'Watches': 'watches'
     };
@@ -23,7 +23,9 @@ export default function Shop() {
     useEffect(() => {
         setSelectedBrand('all');
         setMaxPrice(2000);
+        window.scrollTo(0, 0);
     }, [cat, setSelectedBrand, setMaxPrice]);
+
 
     const currentProducts = useMemo(() => {
         const baseProducts = products[currentCategory] || [];
@@ -34,16 +36,12 @@ export default function Shop() {
             const matchesPrice = p.price <= maxPriceVal;
             return matchesBrand && matchesPrice;
         });
-    }, [cat, products, currentCategory, selectedBrand, maxPrice]);
+    }, [products, currentCategory, selectedBrand, maxPrice]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        setCurrentPage(1);
-    }, [cat]);
 
     if (currentProducts.length === 0) {
         return (
-            <div className="py-10 flex container mx-auto p-1 gap-0 sm:gap-5">
+            <div className="py-10 flex my-container mx-auto p-1 gap-0 sm:gap-5">
                 <Filters
                     showFilters={showFilters}
                     setShowFilters={setShowFilters}
@@ -65,7 +63,7 @@ export default function Shop() {
 
     return (
         <div className="relative">
-            <div className="py-10 flex container mx-auto p-1 gap-0 sm:gap-5">
+            <div className="py-10 flex my-container mx-auto p-1 gap-0 sm:gap-5">
                 <Filters
                     showFilters={showFilters}
                     setShowFilters={setShowFilters}

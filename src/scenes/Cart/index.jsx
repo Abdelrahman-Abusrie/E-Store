@@ -9,7 +9,7 @@ import OrederSummary from './OrderSummary';
 export default function Cart() {
 
     return (
-        <div className="container mx-auto px-4 py-10 min-h-screen">
+        <div className="my-container mx-auto px-4 py-10 min-h-screen">
             {/* Header Section */}
             <div className="mb-8">
                 <h1 className="text-4xl font-bold text-gray-800 mb-2">Your Cart</h1>

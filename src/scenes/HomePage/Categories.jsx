@@ -2,7 +2,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom';
 import categoryContext from '../../Contexts/CategoryContext';
 import { useContext } from 'react';
-import FadeIn from '../../components/Fadin';
+import FadeIn from '../../components/FadeIn';
 /**
  * Categories Component
  * 
@@ -13,7 +13,7 @@ export default function Categories() {
 
     return (
         <div className="pt-20 bg-gray-100 pb-10">
-            <div className="container mx-auto p-1">
+            <div className="my-container mx-auto p-1">
                 <h1 className="text-2xl font-bold">Browse By Category </h1>
                 <p className="text-sm text-gray-500">Find the perfect tech for your lifestyle</p>
                 <FadeIn direction="up">

@@ -19,7 +19,7 @@ export default function Footer() {
 
     return (
         <div className="pt-10 bg-mauve-950 text-white">
-            <div className="container mx-auto p-1 grid grid-cols-8 gap-5">
+            <div className="my-container mx-auto p-1 grid grid-cols-8 gap-5">
                 {/* Column 1: Logo & Socials */}
                 <div className="col-span-8 md:col-span-2 p-2">
                     {/* logo */}
