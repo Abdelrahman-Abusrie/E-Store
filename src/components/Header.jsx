@@ -29,6 +29,7 @@ function Header() {
     const searchInputRef = useRef(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navRef = useRef(null);
+    const profileRef = useRef(null);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -68,6 +69,10 @@ function Header() {
             if (navRef.current && !navRef.current.contains(event.target)) {
                 setIsMenuOpen(false);
             }
+            if (profileRef.current && !profileRef.current.contains(event.target)) {
+                setProfileOpen(false);
+            }
+
         }
 
         document.addEventListener("mousedown", handleClickOutside);
@@ -199,7 +204,8 @@ function Header() {
                 )}
                 {/* User Actions: Wishlist, Cart, Profile */}
                 <div>
-                    <div className='flex gap-3 items-center'>
+                    <div className='flex gap-3 items-center' ref={profileRef}>
+
                         {!isMobile && (
                             <div className='flex gap-3'>
                                 {/* Wishlist Icon */}

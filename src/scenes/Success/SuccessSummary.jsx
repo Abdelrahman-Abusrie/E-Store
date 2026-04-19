@@ -17,7 +17,7 @@ export default function SuccessSummary() {
 
     useEffect(() => {
         clearCart();
-    }, [clearCart]);
+    }, []);
 
     return (
         <div className="bg-gray-50 rounded-3xl p-8 flex flex-col shadow-sm border border-gray-100 h-full">
