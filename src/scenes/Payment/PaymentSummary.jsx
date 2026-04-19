@@ -17,7 +17,7 @@ export default function PaymentSummary() {
                     {cartItems.map(item => (
                         <div key={item.id} className="flex gap-4 items-center">
                             <div className="w-16 h-16 bg-white/90 rounded-xl p-2 flex items-center justify-center shrink-0 shadow-inner">
-                                <img src={item.image} alt={item.title} className="max-h-full max-w-full object-contain" />
+                                <img src={item.images[0]} alt={item.title} className="max-h-full max-w-full object-contain" />
                             </div>
                             <div className="flex flex-col flex-1">
                                 <span className="text-sm font-bold text-gray-100 line-clamp-1">{item.title}</span>

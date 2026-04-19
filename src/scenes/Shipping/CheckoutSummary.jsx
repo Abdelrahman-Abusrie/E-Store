@@ -65,7 +65,7 @@ export default function CheckoutSummary() {
                             {cartItems.map(item => (
                                 <div key={item.id} className="flex gap-4 items-center">
                                     <div className="w-12 h-12 bg-white rounded-xl p-1 flex items-center justify-center">
-                                        <img src={item.image} alt={item.title || item.name} className="max-h-full max-w-full object-contain" />
+                                        <img src={item.images[0]} alt={item.title || item.name} className="max-h-full max-w-full object-contain" />
                                     </div>
                                     <div className="flex flex-col">
                                         <span className="text-sm font-bold text-gray-200 line-clamp-1">{item.title || item.name}</span>

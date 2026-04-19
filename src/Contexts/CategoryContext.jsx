@@ -3,13 +3,13 @@
 import { createContext, useState } from "react";
 
 const categoryContext = createContext({
-    cat: "SmartPhones",
+    cat: "Smartphones",
     setCat: () => { }
 });
 
 
 export const CategoryProvider = ({ children }) => {
-    const [cat, setCat] = useState("SmartPhones");
+    const [cat, setCat] = useState("Smartphones");
     return (
         <categoryContext.Provider value={{ cat, setCat }}>
             {children}

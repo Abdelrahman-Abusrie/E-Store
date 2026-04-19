@@ -1,14 +1,10 @@
-# Fix Wishlist Add Error - Implementation Steps
+# Brand Filter Implementation TODO
 
-## Plan Steps (Approved)
-1. [x] Edit src/components/Item.jsx:
-   - Remove local `isFavorite` state and `useEffect`.
-   - Derive `isInWishlist` from `wishlistItems.some(item => item.id === item.id)`.
-   - Update `handleFavorite` to call `addToWishlist` or `removeFromWishlist` directly based on current state.
-   - Add `useCallback` to handler.
-   - Fix img height class.
+## Steps:
+- [x] 1. Update ProductsContext.jsx: Compute dynamic brands per category (phones, laptops, watches). ✅
+- [x] 2. Create new FilterContext.jsx: Manage selectedCategory, selectedBrand state. ✅
+- [x] 3. Update src/scenes/Shop/index.jsx: Integrate contexts, implement filtering logic. ✅
+- [x] 4. Update Filters.jsx: Dynamic brand list from context, remove price, use FilterContext. ✅
+- [ ] 5. Test: npm run dev, verify dynamic brands/filtering across categories.
 
-2. [x] Test: Verified no loops, wishlist adds/removes correctly via derived state and direct context calls.
-
-3. [x] Complete task.
-
+Progress will be updated after each step.

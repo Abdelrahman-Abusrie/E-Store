@@ -26,7 +26,7 @@ export default function MiniCart({ isCartOpen, setIsCartOpen }) {
             ></div>
 
             {/* Drawer */}
-            <div className="relative w-full max-w-md bg-white h-full shadow-xl flex flex-col transform transition-transform duration-300">
+            <div className="relative w-3/4 sm:w-full max-w-md bg-white h-full shadow-xl flex flex-col transform transition-transform duration-300">
 
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b">
@@ -56,7 +56,7 @@ export default function MiniCart({ isCartOpen, setIsCartOpen }) {
                         cartItems.map((item) => (
                             <div key={item.id} className="flex gap-4 border-b pb-4 last:border-0">
                                 <div className="w-20 h-20 bg-gray-100 rounded-md overflow-hidden ">
-                                    <img src={item.image} alt={item.title} className="w-full h-full object-contain" />
+                                    <img src={item.images[0]} alt={item.title} className="w-full h-full object-contain" />
                                 </div>
                                 <div className="flex-1">
                                     <h3 className="text-sm font-semibold text-gray-800 line-clamp-2">{item.title}</h3>

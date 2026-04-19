@@ -2,11 +2,6 @@ import {
     LocalShippingOutlined,
     Inventory2Outlined,
     GppGoodOutlined,
-    Smartphone,
-    Memory,
-    CameraAltOutlined,
-    BatteryChargingFullOutlined,
-
 } from '@mui/icons-material';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import { useLocation } from 'react-router-dom';
@@ -29,31 +24,13 @@ export default function Info() {
     const [showToast, setShowToast] = useState(false);
 
 
-    const specs = [
-        { icon: <Smartphone className="text-gray-400" />, label: "Screen size", value: "6.7\"" },
-        { icon: <Memory className="text-gray-400" />, label: "CPU", value: "Apple A16 Bionic" },
-        { icon: <Memory className="text-gray-400" />, label: "Number of Cores", value: "6" },
-        { icon: <CameraAltOutlined className="text-gray-400" />, label: "Main camera", value: "48-12-12 MP" },
-        { icon: <CameraAltOutlined className="text-gray-400" />, label: "Front camera", value: "12 MP" },
-        { icon: <BatteryChargingFullOutlined className="text-gray-400" />, label: "Battery capacity", value: "4323 mAh" }
-    ];
-
-    const specsList = specs.map((spec, idx) => {
-        return (
-            <div key={idx} className="bg-[#f9f9f9] p-4 rounded-xl flex flex-col gap-2">
-                {spec.icon}
-                <span className="text-xs text-gray-400 font-medium">{spec.label}</span>
-                <span className="text-sm font-semibold">{spec.value}</span>
-            </div>
-        );
-    });
-
     return (
         <div className="flex-1 ">
             <h1 className="text-[32px] font-bold mb-4">{item.title}</h1>
             <div className="flex items-center gap-4 mb-8">
                 <span className="text-2xl font-bold ">${item.price}</span>
-                <span className="text-xl text-gray-400 line-through ">${item.price + 299}</span>
+                <span className="text-xl text-gray-400 line-through ">${(item.price + (item.price * (item.discountPercentage
+                    / 100))).toFixed(2)}</span>
             </div>
             {item.title !== 'Watch' && (
                 <>
@@ -81,14 +58,10 @@ export default function Info() {
                         ))}
                     </div>
 
-                    {/* Specs Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
-                        {specsList}
-                    </div>
                 </>
             )}
             <p className="text-[15px] text-gray-500 mb-8">
-                Enhanced capabilities thanks to a new engine of faultless Apple A16 Bionic 6-core chip. Translating flawlessly all your inputs throughout the day, multasking effortlessly inside a new, beautiful design language utilizing the best equipment into something far better... <span className="text-black font-medium underline cursor-pointer">read more</span>
+                {item.description}
             </p>
 
             <div className="flex gap-4 mb-8">
@@ -105,13 +78,11 @@ export default function Info() {
                 </button>
                 <button className="flex-1 cursor-pointer py-4 px-6 rounded-xl bg-black text-white font-semibold text-center hover:bg-gray-900 duration-200 shadow-lg shadow-black/20"
                     onClick={() => {
-                        if (!item.isInStock) return;
                         addToCart(item);
                         setShowToast(true);
                         setTimeout(() => {
                             setShowToast(false);
                         }, 3000);
-
                     }}
                 >
                     Add to Cart
@@ -130,13 +101,13 @@ export default function Info() {
                     <div className="bg-[#f2f2f2] w-12 h-12 rounded-full flex items-center justify-center text-gray-500">
                         <Inventory2Outlined fontSize="small" />
                     </div>
-                    <div><p className="font-semibold text-sm text-gray-800">In Stock</p><p className="text-xs text-gray-500 font-medium mt-1">Today</p></div>
+                    <div><p className="font-semibold text-sm text-gray-800">{item.availabilityStatus} </p><p className="text-xs text-gray-500 font-medium mt-1">Today</p></div>
                 </div>
                 <div className="flex items-center gap-4">
                     <div className="bg-[#f2f2f2] w-12 h-12 rounded-full flex items-center justify-center text-gray-500">
                         <GppGoodOutlined fontSize="small" />
                     </div>
-                    <div><p className="font-semibold text-sm text-gray-800">Guaranteed</p><p className="text-xs text-gray-500 font-medium mt-1">1 year</p></div>
+                    <div><p className="font-semibold text-sm text-gray-800">Warranty</p><p className="text-xs text-gray-500 font-medium mt-1">{item.warrantyInformation}</p></div>
                 </div>
             </div>
             {/* Success Toast */}

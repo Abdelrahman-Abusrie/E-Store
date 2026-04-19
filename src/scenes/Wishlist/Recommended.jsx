@@ -1,9 +1,16 @@
-import { featuredProducts } from "../../../public/Data/productsData";
 import Item from "../../components/Item";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import ProductsContext from "../../Contexts/ProductsContext";
 
 export default function Recommended() {
-    const recommendedData = featuredProducts.slice(0, 4);
+    const { products } = useContext(ProductsContext);
+    const recommendedData = [
+        products.phones[0],
+        products.laptops[0],
+        products.watches[0],
+        products.phones[1]
+    ];
     return (
         <div>
             <div className="flex justify-between items-center mb-6">

@@ -31,7 +31,7 @@ export default function SuccessSummary() {
                     <div key={item.id || index} >
                         <div className="flex gap-4 items-center min-w-fit ">
                             <div className="w-20 h-20 bg-white rounded-xl flex items-center justify-center p-2 border border-gray-200">
-                                <img src={item.image} alt={item.title} className="w-full h-full object-contain mix-blend-multiply" />
+                                <img src={item.images[0]} alt={item.title} className="w-full h-full object-contain mix-blend-multiply" />
                             </div>
                             <div className="flex-1 gap-2 flex flex-col sm:flex-row items-start  sm:justify-between">
                                 <div className="flex-1">

@@ -12,7 +12,7 @@ export default function ReviewItems() {
                 <div key={item.id || index}>
                     <div className="flex flex-col sm:flex-row items-center gap-6 py-2">
                         <div className="w-24 h-24 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center p-2 border border-gray-100">
-                            <img src={item.image} alt={item.title} className="w-full h-full object-contain mix-blend-multiply" />
+                            <img src={item.images[0]} alt={item.title} className="w-full h-full object-contain mix-blend-multiply" />
                         </div>
                         <div className="w-full gap-2 sm:flex-1 flex justify-between">
                             <div className="">

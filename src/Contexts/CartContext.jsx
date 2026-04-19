@@ -24,7 +24,7 @@ export const CartProvider = ({ children }) => {
     }, [cartItems]);
 
     const addToCart = (item) => {
-        if (!item.isInStock) return;
+        if (item.availabilityStatus === "Out of Stock") return;
 
         setCartItems((prev) => {
             const existing = prev.find(i => i.id === item.id);

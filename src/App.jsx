@@ -17,46 +17,56 @@ import Login from './scenes/Login';
 import { CategoryProvider } from './Contexts/CategoryContext';
 import Contact from './scenes/Contact';
 import NotFound from './scenes/NotFound';
+import { ProductsProvider } from './Contexts/ProductsContext';
+import { FilterProvider } from './Contexts/FilterContext';
+import { ProfileActiveProvider } from './Contexts/ProfileActiveContext';
+
 
 function App() {
 
 
-  
+
 
 
 
   return (
     <>
-      <CartProvider>
-        <WishlistProvider>
-          <CategoryProvider>
-            <Routes>
-              {/* Pages with Header + Footer */}
-              <Route element={<MainLayout />}>
-                <Route path="/" element={<HomePage />} />
-                <Route path="shop" element={<Shop />} />
-                <Route path="product" element={<ProductDetails />} />
-                <Route path="cart" element={<Cart />} />
-                <Route path="shipping" element={<Shipping />} />
-                <Route path="payment" element={<Payment />} />
-                <Route path="review" element={<Review />} />
-                <Route path="wishlist" element={<Wishlist />} />
-                <Route path="contact" element={<Contact />} />
-              </Route>
+      <ProfileActiveProvider>
+        <ProductsProvider>
+          <FilterProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <CategoryProvider>
+                  <Routes>
+                    {/* Pages with Header + Footer */}
+                    <Route element={<MainLayout />}>
+                      <Route path="/" element={<HomePage />} />
+                      <Route path="shop" element={<Shop />} />
+                      <Route path="product" element={<ProductDetails />} />
+                      <Route path="cart" element={<Cart />} />
+                      <Route path="shipping" element={<Shipping />} />
+                      <Route path="payment" element={<Payment />} />
+                      <Route path="review" element={<Review />} />
+                      <Route path="wishlist" element={<Wishlist />} />
+                      <Route path="contact" element={<Contact />} />
+                    </Route>
 
-              {/* Success page (Header only) */}
-              <Route element={<HeaderOnlyLayout />}>
-                <Route path="/success" element={<Success />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
+                    {/* Success page (Header only) */}
+                    <Route element={<HeaderOnlyLayout />}>
+                      <Route path="/success" element={<Success />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Route>
 
-              {/* Login page (No layout) */}
-              <Route path="/login" element={<Login />} />
+                    {/* Login page (No layout) */}
+                    <Route path="/login" element={<Login />} />
 
-            </Routes>
-          </CategoryProvider>
-        </WishlistProvider>
-      </CartProvider >
+                  </Routes>
+                </CategoryProvider>
+              </WishlistProvider>
+            </CartProvider >
+          </FilterProvider>
+        </ProductsProvider>
+      </ProfileActiveProvider>
     </>
   );
 }

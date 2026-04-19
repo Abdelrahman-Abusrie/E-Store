@@ -24,7 +24,7 @@ export default function CartItems() {
                 <div key={item.id} className="bg-gray-100 rounded-3xl p-4 flex flex-col sm:flex-row gap-6 items-center sm:items-stretch sm:h-40 shadow-sm">
                     {/* Product Image */}
                     <div className="bg-white rounded-xl p-2 w-40 flex items-center justify-center">
-                        <img src={item.image} alt={item.name} className="h-full object-contain max-h-32" />
+                        <img src={item.images[0]} alt={item.name} className="h-full object-contain max-h-32" />
                     </div>
 
                     {/* Product Details */}

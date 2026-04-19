@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -6,6 +6,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import AppleIcon from '@mui/icons-material/Apple';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+import { profileActiveContext } from '../../Contexts/ProfileActiveContext';
 
 
 const RightPanel = () => {
@@ -17,6 +18,7 @@ const RightPanel = () => {
         password: '',
         rememberMe: false,
     });
+    const { setIsProfileActive } = useContext(profileActiveContext);
 
     const schema = yup.object().shape({
         email: yup.string().email('Invalid email address'),
@@ -38,6 +40,7 @@ const RightPanel = () => {
                     setIsLoading(true);
                     setTimeout(() => {
                         setIsLoading(false);
+                        setIsProfileActive(true);
                         navigate('/');
                     }, 1500);
                 } else {

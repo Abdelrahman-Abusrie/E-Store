@@ -2,7 +2,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate } from 'react-router-dom';
 import categoryContext from '../../Contexts/CategoryContext';
 import { useContext } from 'react';
-
+import FadeIn from '../../components/Fadin';
 /**
  * Categories Component
  * 
@@ -16,14 +16,16 @@ export default function Categories() {
             <div className="container mx-auto p-1">
                 <h1 className="text-2xl font-bold">Browse By Category </h1>
                 <p className="text-sm text-gray-500">Find the perfect tech for your lifestyle</p>
-                <div className="my-6 grid grid-cols-3 gap-8 ">
-                    <Cat title={"SmartPhones"} desc={"Latest flagship devices"} image={"mobiles.png"} cat="SmartPhones" />
-                    <Cat second={true} title={"Tablets"} desc={"Professional productivity"} image={"tablet.png"} cat="Tablets" />
-                    <Cat title={"Watches"} desc={"Connected wellness"} image={"watch.png"} cat="Watches" />
+                <FadeIn direction="up">
+                    <div className="my-6 grid grid-cols-3 gap-8 ">
+                        <Cat title={"SmartPhones"} desc={"Latest flagship devices"} image={"mobiles.png"} cat="SmartPhones" />
+                        <Cat second={true} title={"Laptops"} desc={"Professional productivity"} image={"laptop.png"} cat="Laptops" />
+                        <Cat title={"Watches"} desc={"Connected wellness"} image={"watch.png"} cat="Watches" />
 
-                </div>
+                    </div>
+                </FadeIn>
             </div>
-        </div>
+        </div >
     );
 }
 
@@ -39,6 +41,7 @@ function Cat({ second = false, title, desc, image }) {
                 navigate("/shop");
             }}
         >
+
             {/* Image */}
             <img className="h-full w-full mx-auto duration-300 object-contain " src={`../../../images/${image}`} alt="" />
             {/* Overlay Body */}
@@ -49,6 +52,7 @@ function Cat({ second = false, title, desc, image }) {
                     <ArrowForwardIcon className={`mr-2 ${second ? "text-gray-900" : "text-gray-300"}`} />
                 </div>
             </div>
-        </div>
+
+        </div >
     );
 }

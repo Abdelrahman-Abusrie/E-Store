@@ -1,36 +1,35 @@
 import TuneIcon from '@mui/icons-material/Tune';
 import CategoryIcon from '@mui/icons-material/Category';
 import BrandingWatermarkOutlinedIcon from '@mui/icons-material/BrandingWatermarkOutlined';
-import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import PaymentsOutlinedIcon from '@mui/icons-material/PaymentsOutlined';
+import Slider from '@mui/material/Slider';
 
 
-import { useContext, useState } from 'react';
-import { Slider } from '@mui/material';
-import categoryContext from '../../Contexts/CategoryContext';
+import { useState, useEffect } from 'react';
 
-export default function Filters({ showFilters, setShowFilters }) {
+export default function Filters({ showFilters, setShowFilters, cat, setCat, availableBrands, selectedBrand, onBrandSelect, maxPrice, setMaxPrice }) {
     const [openCat, setOpenCat] = useState(true);
     const [openBrand, setOpenBrand] = useState(true);
     const [openPrice, setOpenPrice] = useState(true);
 
-    const { cat, setCat } = useContext(categoryContext);
-    const [brand, setBrand] = useState("Apple");
-    const [price, setPrice] = useState(1000);
+    const [price, setPrice] = useState(maxPrice || 2000);
 
-    function handleOpenCat() {
-        setOpenCat(!openCat);
-    }
-    function handleOpenBrand() {
-        setOpenBrand(!openBrand);
-    }
+    useEffect(() => {
+        if (maxPrice !== undefined) {
+            setPrice(maxPrice);
+        }
+    }, [maxPrice]);
+
+    const handleOpenCat = () => setOpenCat(!openCat);
+    const handleOpenBrand = () => setOpenBrand(!openBrand);
+
     function handleOpenPrice() {
         setOpenPrice(!openPrice);
     }
-
 
     return (
         <div >
@@ -42,7 +41,7 @@ export default function Filters({ showFilters, setShowFilters }) {
                 <div className='flex justify-between items-start'>
                     <div>
                         <h1 className="text-lg font-semibold"> <TuneIcon /> Filters</h1>
-                        <p className=' uppercase text-sm py-2 text-gray-600'>Rfine your Search</p>
+                        <p className=' uppercase text-sm py-2 text-gray-600'>Refine your Search</p>
                     </div>
                     {showFilters && <span className='cursor-pointer text-lg font-bold text-gray-600 hover:text-gray-800 hover:scale-110 duration-300' onClick={() => setShowFilters(false)}>✕</span>}
                 </div>
@@ -54,16 +53,16 @@ export default function Filters({ showFilters, setShowFilters }) {
                         <ul className='py-3 pl-4 text-gray-800'>
                             <li className=' cursor-pointer'>
                                 <div className='flex items-center gap-1.5'
-                                    onClick={() => setCat("SmartPhones")}>
-                                    {cat === "SmartPhones" ? <CheckCircleIcon sx={{ fontSize: "20px", color: "#0077ff" }} /> : <RadioButtonUncheckedIcon sx={{ fontSize: "20px" }} />}
-                                    SmartPhones
+                                    onClick={() => setCat("Smartphones")}>
+                                    {cat === "Smartphones" ? <CheckCircleIcon sx={{ fontSize: "20px", color: "#0077ff" }} /> : <RadioButtonUncheckedIcon sx={{ fontSize: "20px" }} />}
+                                    Smartphones
                                 </div>
                             </li>
                             <li className=' cursor-pointer'>
                                 <div className='flex items-center gap-1.5'
-                                    onClick={() => setCat("Tablets")}>
-                                    {cat === "Tablets" ? <CheckCircleIcon sx={{ fontSize: "20px", color: "#0077ff" }} /> : <RadioButtonUncheckedIcon sx={{ fontSize: "20px" }} />}
-                                    Tablets
+                                    onClick={() => setCat("Laptops")}>
+                                    {cat === "Laptops" ? <CheckCircleIcon sx={{ fontSize: "20px", color: "#0077ff" }} /> : <RadioButtonUncheckedIcon sx={{ fontSize: "20px" }} />}
+                                    Laptops
                                 </div>
                             </li>
                             <li className=' cursor-pointer'>
@@ -79,27 +78,32 @@ export default function Filters({ showFilters, setShowFilters }) {
                 {/* Brand */}
                 <div>
                     <div className='flex pt-5  justify-between cursor-pointer' onClick={handleOpenBrand}>
-                        <div className='flex gap-3'><BrandingWatermarkOutlinedIcon /> <h1 className='font-semibold'>Brand</h1> </div>{openBrand ? <ArrowDropDownIcon /> : <ArrowLeftIcon />}</div>
+                        <div className='flex gap-3'><BrandingWatermarkOutlinedIcon /> <h1 className='font-semibold'>Brand</h1> ({availableBrands.length})</div>{openBrand ? <ArrowDropDownIcon /> : <ArrowLeftIcon />}</div>
                     {openBrand && <div>
-                        <ul className='py-3 pl-4 text-gray-800'>
-                            <li className=' cursor-pointer'>
+                        <ul className='py-3 pl-4 text-gray-800 max-h-48 overflow-y-auto'>
+                            <li className='cursor-pointer'>
                                 <div className='flex items-center gap-1.5'
-                                    onClick={() => setBrand("Apple")}>
-                                    {brand === "Apple" ? <CheckCircleIcon sx={{ fontSize: "20px", color: "#0077ff" }} /> : <RadioButtonUncheckedIcon sx={{ fontSize: "20px" }} />}
-                                    Apple
+                                    onClick={() => onBrandSelect('all')}>
+                                    {selectedBrand === 'all' ? <CheckCircleIcon sx={{ fontSize: "20px", color: "#0077ff" }} /> : <RadioButtonUncheckedIcon sx={{ fontSize: "20px" }} />}
+                                    All
                                 </div>
                             </li>
-                            <li className=' cursor-pointer'>
-                                <div className='flex items-center gap-1.5'
-                                    onClick={() => setBrand("Samsung")}>
-                                    {brand === "Samsung" ? <CheckCircleIcon sx={{ fontSize: "20px", color: "#0077ff" }} /> : <RadioButtonUncheckedIcon sx={{ fontSize: "20px" }} />}
-                                    Samsung
-                                </div>
-                            </li>
-
+                            {availableBrands.map((brand) => (
+                                <li key={brand} className='cursor-pointer'>
+                                    <div className='flex items-center gap-1.5'
+                                        onClick={() => onBrandSelect(selectedBrand === brand ? '' : brand)}>
+                                        {selectedBrand === brand ? <CheckCircleIcon sx={{ fontSize: "20px", color: "#0077ff" }} /> : <RadioButtonUncheckedIcon sx={{ fontSize: "20px" }} />}
+                                        {brand}
+                                    </div>
+                                </li>
+                            ))}
+                            {availableBrands.length === 0 && (
+                                <li className='text-gray-500 py-2'>Loading brands...</li>
+                            )}
                         </ul>
                     </div>}
                 </div>
+
                 {/* Price Slider */}
                 <div>
                     <div className='flex pt-5 justify-between cursor-pointer' onClick={handleOpenPrice}>
@@ -108,6 +112,7 @@ export default function Filters({ showFilters, setShowFilters }) {
                         <Slider
                             value={price}
                             onChange={(e, val) => setPrice(val)}
+                            onChangeCommitted={(e, val) => setMaxPrice(val)}
                             min={0}
                             max={2000}
                             sx={{

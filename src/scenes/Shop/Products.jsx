@@ -1,10 +1,6 @@
 import Item from "../../components/Item";
 import { useState, useEffect } from "react";
 
-
-
-
-
 export default function Products({ onClick, Products, currentPage, setCurrentPage }) {
     const [isLoading, setIsLoading] = useState(true);
 
@@ -93,5 +89,6 @@ export default function Products({ onClick, Products, currentPage, setCurrentPag
                 </div>
             </div>
         </div>
+
     );
 }
