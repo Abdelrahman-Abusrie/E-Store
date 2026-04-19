@@ -202,10 +202,10 @@ function Header() {
                         <MiniCart isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />
                     </div>
                 )}
+
                 {/* User Actions: Wishlist, Cart, Profile */}
                 <div>
                     <div className='flex gap-3 items-center' ref={profileRef}>
-
                         {!isMobile && (
                             <div className='flex gap-3'>
                                 {/* Wishlist Icon */}
@@ -260,7 +260,7 @@ function Header() {
                         )}
                     </div>
 
-                    <div className={`absolute top-full right-4 w-48 bg-white shadow-lg rounded-md transition-all duration-300 ease-in-out z-20 overflow-hidden ${profileOpen ? 'max-h-96 border border-gray-200' : 'max-h-0 border-0 pointer-events-none'}`}>
+                    <div ref={profileRef} className={`absolute top-full right-4 w-48 bg-white shadow-lg rounded-md transition-all duration-300 ease-in-out z-20 overflow-hidden ${profileOpen ? 'max-h-96 border border-gray-200' : 'max-h-0 border-0 pointer-events-none'}`}>
                         <div className='py-2'>
                             {isProfileActive && (
                                 <div>

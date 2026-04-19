@@ -40,7 +40,7 @@ html{
 /* small */
 @media (min-width: 768px) {
     .my-container {
-        width: 730px;
+        width: 750px;
     }
 }
 /* medium */
